@@ -1,0 +1,143 @@
+======================================================================
+EXPLAINABILITY & ERROR ANALYSIS REPORT (VALIDATION DATA)
+======================================================================
+Model            : LogisticRegression
+Validation rows  : 1284
+Classes          : pants-fire, false, barely-true, half-true, mostly-true, true
+
+NOTE: all numbers below come from the VALIDATION set. The test set was not used.
+
+======================================================================
+1. OVERALL METRICS
+======================================================================
+Accuracy             : 0.2391
+Macro precision      : 0.2397
+Macro recall         : 0.2519
+Macro F1-score       : 0.2419
+Weighted F1-score    : 0.2374
+Correct / Incorrect  : 307 / 977
+
+Reference points (to judge whether the model learned anything):
+  Uniform random guessing (1/6)        : 0.1667
+  Always predict most common validation class   : 0.2048
+
+======================================================================
+2. CLASSIFICATION REPORT
+======================================================================
+              precision    recall  f1-score   support
+
+  pants-fire      0.238     0.336     0.279       116
+       false      0.264     0.217     0.238       263
+ barely-true      0.203     0.198     0.201       237
+   half-true      0.240     0.194     0.214       248
+ mostly-true      0.274     0.247     0.260       251
+        true      0.219     0.320     0.260       169
+
+    accuracy                          0.239      1284
+   macro avg      0.240     0.252     0.242      1284
+weighted avg      0.242     0.239     0.237      1284
+
+======================================================================
+3. LABEL DISTRIBUTION: ACTUAL vs PREDICTED
+======================================================================
+class           actual  predicted
+pants-fire         116        164
+false              263        216
+barely-true        237        231
+half-true          248        200
+mostly-true        251        226
+true               169        247
+(A class with many actual but very few predicted samples means the model rarely predicts it.)
+
+======================================================================
+4. CONFUSION MATRIX (rows = actual, columns = predicted)
+======================================================================
+                 pred:pants-fir  pred:false  pred:barely-tr  pred:half-true  pred:mostly-tr  pred:true
+act:pants-fire               39          19              28               8               8         14
+act:false                    40          57              54              39              37         36
+act:barely-true              29          42              47              43              38         38
+act:half-true                23          49              43              48              44         41
+act:mostly-true              22          27              37              39              62         64
+act:true                     11          22              22              23              37         54
+
+Most frequent confusions (actual -> predicted):
+  mostly-true  -> true         64 times
+  false        -> barely-true  54 times
+  half-true    -> false        49 times
+  half-true    -> mostly-true  44 times
+  half-true    -> barely-true  43 times
+  barely-true  -> half-true    43 times
+  barely-true  -> false        42 times
+  half-true    -> true         41 times
+
+Error distance on the truthfulness scale:
+Mean absolute distance of errors on the 6-step scale: 1.98
+  Errors that are 1 step(s) off: 425 (43.5% of errors)
+  Errors that are 2 step(s) off: 284 (29.1% of errors)
+  Errors that are 3 step(s) off: 155 (15.9% of errors)
+  Errors that are 4 step(s) off: 88 (9.0% of errors)
+  Errors that are 5 step(s) off: 25 (2.6% of errors)
+
+======================================================================
+5. TOP 10 POSITIVE / NEGATIVE WORDS PER CLASS (Logistic Regression coefficients)
+======================================================================
+Positive = presence of the word pushes the score TOWARD the class.
+Negative = presence of the word pushes the score AWAY from the class.
+
+--- PANTS-FIRE ---
+  Positive: obama (+2.28), obamas (+2.23), muslim (+2.19), face (+2.14), border (+2.00), rep (+1.97), socialists (+1.92), navy (+1.69), reps (+1.61), china (+1.57)
+  Negative: percent (-2.01), oil (-1.71), times (-1.68), average (-1.50), supported (-1.44), deficit (-1.38), mexico (-1.31), state (-1.28), actually (-1.27), debt (-1.23)
+
+--- FALSE ---
+  Positive: building (+1.25), scheme (+1.21), debunked (+1.20), budget (+1.19), worked (+1.10), destroyed (+1.07), attack (+1.07), government (+1.06), commission (+1.05), bankrupt (+1.03)
+  Negative: spending (-1.32), percent (-1.28), day (-1.26), countries (-1.22), president obama (-1.16), georgia (-1.13), american (-1.12), nearly (-1.07), taxes (-1.01), terms (-0.95)
+
+--- BARELY-TRUE ---
+  Positive: benghazi (+1.32), clear (+1.26), voted (+1.26), real (+1.25), obamacare (+1.23), fight (+1.15), supports (+1.13), taxpayer (+1.10), federal reserve (+1.06), seven years (+1.05)
+  Negative: 60 (-1.24), ohio (-1.18), black (-1.03), close (-1.01), record (-1.00), voters (-0.94), entire (-0.92), primary (-0.90), just (-0.86), rates (-0.82)
+
+--- HALF-TRUE ---
+  Positive: cut (+1.60), indiana (+1.37), black (+1.17), trillion (+1.17), millions (+1.15), manufacturing (+1.13), increased (+1.09), deficit (+1.06), countries (+1.02), comes (+1.01)
+  Negative: vote (-0.98), counties (-0.89), national (-0.86), wisconsin (-0.86), non (-0.82), coming (-0.79), doctors (-0.79), know (-0.79), tuition (-0.74), baby (-0.74)
+
+--- MOSTLY-TRUE ---
+  Positive: percent (+1.75), poverty (+1.45), 22 (+1.35), turn (+1.32), average (+1.28), million (+1.26), highest (+1.26), half (+1.24), 000 (+1.23), says donald (+1.23)
+  Negative: rep (-1.37), obama (-1.33), congress (-1.12), plan (-1.01), group (-0.95), fund (-0.93), raise taxes (-0.88), constitution (-0.87), im (-0.87), stop (-0.85)
+
+--- TRUE ---
+  Positive: georgia (+1.74), mccain (+1.45), sen obama (+1.38), counties (+1.36), called (+1.27), day (+1.21), nearly (+1.17), american (+1.14), combined (+1.11), state (+1.09)
+  Negative: obamacare (-1.92), people (-1.34), obama (-1.22), work (-1.18), republicans (-1.11), raise (-1.07), obamas (-1.06), wisconsin (-1.04), making (-1.04), run (-1.04)
+
+======================================================================
+6. SAMPLE MISCLASSIFIED STATEMENTS (first 15; full list in CSV)
+======================================================================
+  actual=barely-true  predicted=mostly-true  | we have less americans working now than in the 70s.
+  actual=half-true    predicted=true         | says nearly half of oregons children are poor.
+  actual=half-true    predicted=barely-true  | on attacks by republicans that various programs in the economic stimulus plan are not stimulative, "if you add all that stuff up, it accounts for less than 1...
+  actual=false        predicted=half-true    | says when armed civilians stop mass shootings with guns, an average of 2.5 people die; otherwise, an average of 18 people die.
+  actual=true         predicted=pants-fire   | says tennessee is providing millions of dollars to virtual school company for results at the bottom of the bottom.
+  actual=false        predicted=half-true    | the health care reform plan would set limits similar to the socialized system in britain, where people are allowed to die if their treatment would cost more ...
+  actual=true         predicted=mostly-true  | says donald trump started his career back in 1973 being sued by the justice department for racial discrimination because he would not rent apartments in one ...
+  actual=half-true    predicted=pants-fire   | bill white has a long history of trying to limit or even disenfranchise military voters.
+  actual=half-true    predicted=barely-true  | john mccains chief economic adviser during the 08 race estimated that trumps promises would cause america to lose 3.5 million jobs.
+  actual=false        predicted=half-true    | says 21,000 wisconsin residents got jobs in 2011, but 18,000 of them were in other states.
+  actual=half-true    predicted=barely-true  | state revenue projections have missed the mark month after month.
+  actual=true         predicted=barely-true  | the median income of a middle class family went down $2,100 from 2001 to 2007.
+  actual=barely-true  predicted=mostly-true  | every citizen is entitled to the freedom of speech, but no one should have the right to use government funds or institutions to portray acts that are morally...
+  actual=half-true    predicted=barely-true  | rick perry has advocated abandoning social security, scuttling medicaid and ending the federal income tax.
+  actual=half-true    predicted=mostly-true  | two thirds to three quarters of people without [health] insurance in rhode island work.
+
+======================================================================
+7. HOW TO INTERPRET THESE RESULTS (limitations)
+======================================================================
+- Coefficients show ASSOCIATION with a label in the TRAINING data, not whether a word
+  makes a claim true or false. Many top words reflect topic, speaker or era artifacts.
+- In a multinomial model, coefficients are relative across classes, so a 'negative' word
+  for one class is mainly evidence for competing classes, not a standalone signal.
+- TF-IDF words are correlated; individual coefficients are unstable. Treat them as
+  hypotheses to check, not as proven explanations.
+- The model only sees the statement text (no speaker, source or evidence), so a low
+  score is expected for fine-grained truthfulness grading.
+- Validation data was used for this analysis. If you make changes based on it, the
+  validation score becomes optimistic; use the test set only once, for the final report.
+======================================================================

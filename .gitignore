@@ -1,0 +1,28 @@
+
+# Node.js
+node_modules/
+backend/node_modules/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Dataset files - download separately
+dataset/*.tsv
+dataset/cleaned/
+dataset/processed/
+
+# Temporary files
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor
+.vscode/
